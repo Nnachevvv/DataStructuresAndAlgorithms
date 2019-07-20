@@ -17,7 +17,7 @@ public class ArrayList {
     private int capacity;
     private Object[] elements;
 
-    ArrayList() {
+    public ArrayList() {
         this.capacity = 2;
         this.count = 0;
         this.elements = new Object[capacity];
@@ -46,8 +46,8 @@ public class ArrayList {
     }
 
     public Object remove(int index) {
-        if (index > count || index < 0 || index >= capacity) {
-            return null;
+        if (index > count || index < 0) {
+            throw new IndexOutOfBoundsException("Invalid Index");
         }
 
         Object removedElement = elements[index];
@@ -59,16 +59,16 @@ public class ArrayList {
 
 
     public Object get(int index) {
-        if (index > count || index < 0 || index >= capacity) {
-            return null;
+        if (index > count || index < 0) {
+            throw new IndexOutOfBoundsException("Invalid Index");
         }
         return elements[index];
     }
 
 
     public Object set(int index, Object element) {
-        if (index > count || index < 0 || index >= capacity) {
-            return null;
+        if (index > count || index < 0) {
+            throw new IndexOutOfBoundsException("Invalid Index");
         }
         Object tempElement = elements[index];
         this.elements[index] = element;
@@ -83,7 +83,7 @@ public class ArrayList {
     }
 
 
-     void ensureCapacity(int minCapacity) {
+    public void ensureCapacity(int minCapacity) {
         Object[] temp = new Object[minCapacity];
         System.arraycopy(elements, 0, temp, 0, elements.length);
         this.elements = temp;
