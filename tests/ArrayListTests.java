@@ -27,7 +27,7 @@ public class ArrayListTests {
     }
 
     @Test
-    public void ELementShouldHaveNullValue() {
+    public void ElementShouldHaveNullValue() {
         array.add(null);
 
         Assert.assertNull(array.get(0));
@@ -51,5 +51,6 @@ public class ArrayListTests {
         array.add(2);
         Assert.assertFalse(array.isEmpty());
     }
+
 
 }
