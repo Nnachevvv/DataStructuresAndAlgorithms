@@ -1,6 +1,7 @@
 package data_structures;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 class Node<T> {
     public Node<T> next;
@@ -11,6 +12,7 @@ class Node<T> {
         this.next = null;
     }
 }
+
 
 public class LinkedList<T> {
     private Node<T> head;
@@ -24,7 +26,7 @@ public class LinkedList<T> {
     public void add(T value) {
         ++size;
         if (head == null) {
-            head = new Node<T>(value);
+            head = new Node<>(value);
             return;
         }
 
@@ -32,7 +34,7 @@ public class LinkedList<T> {
         while (temp.next != null) {
             temp = temp.next;
         }
-        temp.next = new Node<T>(value);
+        temp.next = new Node<>(value);
 
     }
 
@@ -76,6 +78,47 @@ public class LinkedList<T> {
         }
     }
 
+    public boolean isEmpty() {
+        return size == 0;
+    }
+
+
+    public T removeFront() {
+        if (isEmpty()) {
+            throw new NoSuchElementException("Empty list.");
+        }
+        T removedElement = head.value;
+        head = head.next;
+        --size;
+        return removedElement;
+    }
+
+    public T removeLast() {
+        if (size == 0) {
+            throw new NoSuchElementException("Empty list.");
+        }
+        Node<T> temp = head;
+        while (temp.next != null) {
+            temp = temp.next;
+        }
+        T removedElement = temp.value;
+        --size;
+        return removedElement;
+    }
+
+    public int search(T element) {
+        Node temp = head;
+        int index = 0;
+        while (temp != null) {
+            if (temp.value == element) {
+                return index;
+            }
+            ++index;
+            temp = temp.next;
+        }
+        return -1;
+    }
+
 
     public T get(int index) {
         if (index < 0 || index >= size) {
@@ -91,7 +134,7 @@ public class LinkedList<T> {
 
     }
     public T getLast() {
-        if (size == 0) {
+        if (isEmpty()) {
             return null;
         }
         Node<T> temp = head;
@@ -111,6 +154,7 @@ public class LinkedList<T> {
         this.size = 0;
     }
 
+
     public boolean contains(T element) {
         Node temp = head;
         while (temp != null) {
@@ -122,6 +166,7 @@ public class LinkedList<T> {
 
         return false;
     }
+
 
     public boolean equals(List<T> list) {
         if (size != list.size()) {

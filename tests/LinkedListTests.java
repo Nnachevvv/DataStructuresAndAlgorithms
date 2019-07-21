@@ -128,7 +128,59 @@ public class LinkedListTests {
         Assert.assertFalse(list.contains(0));
     }
 
+    @Test
+    public void RemoveLastShouldDeleteZeroPosElement() {
+        list.add(0);
+        Integer lastExpected = 0;
+        Assert.assertEquals(lastExpected, list.removeLast());
+    }
 
+    @Test
+    public void RemoveLastShouldHaveSize0() {
+        list.add(0);
+        list.removeLast();
+        Assert.assertEquals(0, list.size());
+    }
+
+    @Test
+    public void RemoveLastShouldDeleteLastElement() {
+        list.add(0);
+        list.add(2);
+        list.add(3);
+        Integer lastExpected = 3;
+        Assert.assertEquals(lastExpected, list.removeLast());
+    }
+
+    @Test
+    public void RemoveLastShouldHaveSize2() {
+        list.add(0);
+        list.add(2);
+        list.add(3);
+        list.removeLast();
+        Assert.assertEquals(2, list.size());
+    }
+
+    @Test
+    public void SearchShouldFindElement() {
+        list.add(0);
+        list.add(2);
+        list.add(3);
+        Assert.assertEquals(1, list.search(2));
+    }
+
+    @Test
+    public void SearchShouldNotFindElement() {
+        list.add(0);
+        list.add(2);
+        list.add(3);
+        Assert.assertEquals(-1, list.search(5));
+    }
+
+    @Test
+    public void SearchShouldNotFindElementZeroList() {
+
+        Assert.assertEquals(-1, list.search(5));
+    }
 
 
 }
