@@ -2,10 +2,7 @@ package data_structures;
 
 import java.lang.reflect.Array;
 /*
-TO DO :
-TEST
-CHECK IF LOGIC IS TRUE
-EQUALLITY COMPRASION
+TODO
 MAYBE GENERIC SPECIALIZIATION?
 
  */

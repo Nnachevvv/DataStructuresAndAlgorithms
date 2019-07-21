@@ -97,11 +97,15 @@ public class LinkedList<T> {
         if (size == 0) {
             throw new NoSuchElementException("Empty list.");
         }
-        Node<T> temp = head;
-        while (temp.next != null) {
-            temp = temp.next;
+        Node<T> slow = head;
+        Node<T> fast = head.next;
+        while (fast != null) {
+            slow = slow.next;
+            fast = fast.next;
         }
-        T removedElement = temp.value;
+
+        T removedElement = slow.value;
+        slow.next = null;
         --size;
         return removedElement;
     }
