@@ -2,6 +2,7 @@ package data_structures;
 
 import java.util.NoSuchElementException;
 
+//TODO tests
 class Tree {
     public Tree left;
     public Tree right;
@@ -62,7 +63,61 @@ public class BinaryTree {
         throw new NoSuchElementException("Element is not found.");
     }
 
-    public int minElement() {
+    public boolean remove(int value) {
+        if (root == null) {
+            throw new NoSuchElementException();
+        }
+
+        Tree previous = null;
+        Tree current = root;
+        while (current != null) {
+            if (current.value == value) {
+                deleteNode(previous, current, value);
+                return true;
+            }
+
+            previous = current;
+            if (current.value < value) {
+                current = root.right;
+            } else {
+                current = root.left;
+            }
+        }
+        return false;
+    }
+
+    private void deleteNode(Tree previous, Tree current, int value) {
+
+        boolean deletePos = false;//false for left , true for right pos
+
+        if (previous.value < value) {
+            deletePos = true;
+        }
+
+        if (current.left == null && current.right == null) {
+            if (deletePos) previous.right = null;
+            else previous.left = null;
+        } else if (current.left != null && current.right == null) {
+            if (deletePos) previous.right = current.left;
+            else previous.left = current.left;
+        } else if (current.left == null) {
+            if (deletePos) previous.right = current.right;
+            else previous.left = current.right;
+        } else {
+            Tree temp = current.right;
+            Tree parentTemp = null;
+            while (temp.left != null) {
+                parentTemp = temp;
+                temp = temp.left;
+            }
+            current.value = temp.value;
+            parentTemp.left = null;
+        }
+        current = null;
+    }
+
+
+    public Tree minElement() {
         if (root == null) {
             throw new NoSuchElementException("Empty BST.");
         }
@@ -71,10 +126,10 @@ public class BinaryTree {
         while (temp.left != null) {
             temp = temp.left;
         }
-        return temp.value;
+        return temp;
     }
 
-    public int maxElement() {
+    public Tree maxElement() {
         if (root == null) {
             throw new NoSuchElementException("Empty BST.");
         }
@@ -83,6 +138,38 @@ public class BinaryTree {
         while (temp.right != null) {
             temp = temp.right;
         }
-        return temp.value;
+        return temp;
+    }
+
+    public void print() {
+        Tree temp = root;
+        printInOrder(temp);
+    }
+
+    private void printInOrder(Tree node) {
+        if (node == null) {
+            return;
+        }
+        printInOrder(node.left);
+        System.out.print(node.value + " ");
+        printInOrder(node.right);
+    }
+
+    private void printPreOrder(Tree node) {
+        if (node == null) {
+            return;
+        }
+        System.out.print(node.value + " ");
+        printInOrder(node.left);
+        printInOrder(node.right);
+    }
+
+    private void printPostOrder(Tree node) {
+        if (node == null) {
+            return;
+        }
+        printInOrder(node.left);
+        printInOrder(node.right);
+        System.out.print(node.value + " ");
     }
 }
